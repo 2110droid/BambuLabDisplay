@@ -1,0 +1,6 @@
+.pio/
+.vscode/
+.DS_Store
+
+# Firmware binaries are generated automatically by GitHub Actions.
+site/firmware/*/firmware.bin
