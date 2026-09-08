@@ -1,0 +1,17 @@
+{
+  "name": "Bambu P2S Round Display - ESP32 WROOM",
+  "version": "1.0.0",
+  "new_install_prompt_erase": true,
+  "new_install_improv_wait_time": 0,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        {
+          "path": "../firmware/esp32-wroom/firmware.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}

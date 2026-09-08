@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071018">
+  <meta
+    name="description"
+    content="Flash and configure a Bambu Lab P2S round GC9A01 status display directly from your browser."
+  >
+  <title>Bambu P2S Round Display Installer</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script
+    type="module"
+    src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+  ></script>
+</head>
+
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Bambu P2S Display Installer">
+      <span class="brand-mark">P2S</span>
+      <span>
+        <strong>Round Display</strong>
+        <small>ESP32 Web Installer</small>
+      </span>
+    </a>
+
+    <nav>
+      <a href="#install">Install</a>
+      <a href="#wiring">Wiring</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">
+          <span class="status-dot"></span>
+          Browser-based ESP32 installer
+        </div>
+
+        <h1>
+          Turn a round GC9A01 into a
+          <span>Bambu P2S status display.</span>
+        </h1>
+
+        <p class="hero-lead">
+          Choose your ESP32 board, flash the firmware over USB, save your
+          Wi-Fi and printer settings, and get the correct wiring diagram
+          for your exact board.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button primary" href="#install">Start installation</a>
+          <a class="button secondary" href="#gallery">See the project</a>
+        </div>
+
+        <div class="privacy-pill">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2 4.5 5v5.6c0 4.8 3.1 9.2 7.5 10.8 4.4-1.6 7.5-6 7.5-10.8V5L12 2Zm0 3 4.5 1.8v3.8c0 3.3-1.8 6.5-4.5 7.9-2.7-1.4-4.5-4.6-4.5-7.9V6.8L12 5Z"/>
+          </svg>
+          Your Wi-Fi password and printer access code stay in your browser.
+        </div>
+      </div>
+
+      <div class="display-mock" aria-label="Preview of the round status display">
+        <div class="display-ring">
+          <div class="display-face">
+            <div class="mock-status">PRINTING</div>
+            <div class="mock-progress">68<span>%</span></div>
+            <div class="mock-layer">Layer 143 / 212</div>
+            <div class="mock-time">
+              <strong>01:24</strong>
+              <small>TIME LEFT (HH:MM)</small>
+              <em>DONE 21:37</em>
+            </div>
+            <div class="mock-temperatures">
+              <div><small>NOZZLE</small><strong>220C</strong></div>
+              <div><small>BED</small><strong>55C</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" class="section">
+      <div class="section-heading">
+        <span class="kicker">Installer</span>
+        <h2>Set up your display</h2>
+        <p>
+          Complete the steps in order. The firmware is generic; your
+          personal settings are written to the ESP32 after flashing.
+        </p>
+      </div>
+
+      <div class="steps">
+        <article class="card step-card">
+          <div class="step-number">1</div>
+          <div class="card-heading">
+            <div>
+              <h3>Choose your board</h3>
+              <p>The installer will load the matching firmware and pinout.</p>
+            </div>
+          </div>
+
+          <div id="board-options" class="board-options" role="radiogroup"></div>
+
+          <div id="board-summary" class="board-summary"></div>
+        </article>
+
+        <article class="card step-card">
+          <div class="step-number">2</div>
+          <div class="card-heading">
+            <div>
+              <h3>Enter your settings</h3>
+              <p>These values are not uploaded to GitHub or stored by this page.</p>
+            </div>
+          </div>
+
+          <form id="config-form" autocomplete="off">
+            <div class="form-grid">
+              <label>
+                <span>Wi-Fi SSID</span>
+                <input id="ssid" name="ssid" required placeholder="My Wi-Fi">
+              </label>
+
+              <label>
+                <span>Wi-Fi password</span>
+                <div class="password-field">
+                  <input
+                    id="wifi-password"
+                    name="wifi-password"
+                    type="password"
+                    placeholder="Wi-Fi password"
+                  >
+                  <button type="button" class="reveal" data-reveal="wifi-password">Show</button>
+                </div>
+              </label>
+
+              <label>
+                <span>P2S IP address</span>
+                <input
+                  id="printer-ip"
+                  name="printer-ip"
+                  required
+                  inputmode="decimal"
+                  placeholder="192.168.1.123"
+                >
+              </label>
+
+              <label>
+                <span>Printer serial number</span>
+                <input
+                  id="printer-serial"
+                  name="printer-serial"
+                  required
+                  placeholder="Printer serial"
+                >
+              </label>
+
+              <label>
+                <span>LAN Access Code</span>
+                <div class="password-field">
+                  <input
+                    id="access-code"
+                    name="access-code"
+                    type="password"
+                    required
+                    placeholder="LAN Access Code"
+                  >
+                  <button type="button" class="reveal" data-reveal="access-code">Show</button>
+                </div>
+              </label>
+
+              <label>
+                <span>DHCP hostname</span>
+                <input
+                  id="hostname"
+                  name="hostname"
+                  required
+                  value="Bambu-P2S-Display"
+                  pattern="[A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9]?"
+                >
+              </label>
+
+              <label class="full-width">
+                <span>Timezone</span>
+                <select id="timezone" name="timezone">
+                  <option value="CET-1CEST,M3.5.0,M10.5.0/3" selected>Europe / Stockholm, Berlin, Paris</option>
+                  <option value="GMT0BST,M3.5.0/1,M10.5.0">Europe / London</option>
+                  <option value="UTC0">UTC</option>
+                  <option value="EST5EDT,M3.2.0/2,M11.1.0/2">America / New York</option>
+                  <option value="PST8PDT,M3.2.0/2,M11.1.0/2">America / Los Angeles</option>
+                </select>
+              </label>
+            </div>
+          </form>
+        </article>
+
+        <article class="card step-card">
+          <div class="step-number">3</div>
+          <div class="card-heading">
+            <div>
+              <h3>Flash firmware</h3>
+              <p>Connect the selected ESP32 to your computer with a USB data cable.</p>
+            </div>
+          </div>
+
+          <div class="flash-area">
+            <esp-web-install-button id="install-button">
+              <button slot="activate" class="button primary large">
+                Connect & flash ESP32
+              </button>
+
+              <span slot="unsupported" class="browser-warning">
+                This browser does not support the required serial connection.
+                Try Chrome, Edge or another Web Serial compatible desktop browser.
+              </span>
+
+              <span slot="not-allowed" class="browser-warning">
+                Web flashing requires HTTPS. GitHub Pages provides HTTPS automatically.
+              </span>
+            </esp-web-install-button>
+
+            <p class="fine-print">
+              Select <strong>Install</strong> in the ESP Web Tools dialog. When it is done,
+              close the dialog before continuing to Step 4.
+            </p>
+          </div>
+        </article>
+
+        <article class="card step-card">
+          <div class="step-number">4</div>
+          <div class="card-heading">
+            <div>
+              <h3>Save settings to the ESP32</h3>
+              <p>The values from Step 2 are sent directly over USB Serial and saved in NVS.</p>
+            </div>
+          </div>
+
+          <div class="config-actions">
+            <button id="send-config" class="button primary large" type="button">
+              Save settings to device
+            </button>
+
+            <button id="read-config" class="button secondary" type="button">
+              Read current settings
+            </button>
+
+            <button id="clear-config" class="button danger-ghost" type="button">
+              Factory reset settings
+            </button>
+          </div>
+
+          <div id="serial-status" class="serial-status" aria-live="polite">
+            <span class="status-icon idle"></span>
+            <div>
+              <strong>Waiting</strong>
+              <p>Flash the device first, then save the settings.</p>
+            </div>
+          </div>
+
+          <details class="serial-console">
+            <summary>USB serial log</summary>
+            <pre id="serial-log">No serial session yet.</pre>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section id="wiring" class="section wiring-section">
+      <div class="section-heading">
+        <span class="kicker">Wiring</span>
+        <h2>Connect the GC9A01</h2>
+        <p>
+          After configuration succeeds, the exact pinout for your selected
+          board is highlighted below.
+        </p>
+      </div>
+
+      <div id="wiring-card" class="card wiring-card locked">
+        <div class="wiring-locked">
+          <div class="lock-icon">↯</div>
+          <h3>Complete the installer first</h3>
+          <p>Your selected board pinout will appear here after settings are saved.</p>
+        </div>
+
+        <div class="wiring-content">
+          <div>
+            <div class="wiring-title-row">
+              <div>
+                <span class="kicker">Selected board</span>
+                <h3 id="wiring-board-name"></h3>
+              </div>
+              <span id="wiring-chip" class="chip-badge"></span>
+            </div>
+
+            <div id="pinout-table" class="pinout-table"></div>
+
+            <div id="wiring-notes" class="wiring-notes"></div>
+          </div>
+
+          <div id="board-visual" class="board-visual"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <div class="section-heading">
+        <span class="kicker">Project gallery</span>
+        <h2>Show users what they are building</h2>
+        <p>
+          The repository includes placeholder images. Replace them with your
+          own photos without changing the installer code.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <figure class="gallery-card">
+          <img src="assets/project-display.svg" alt="Finished round display placeholder">
+          <figcaption>
+            <strong>Finished display</strong>
+            <span>Replace <code>assets/project-display.svg</code></span>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-card">
+          <img src="assets/project-build.svg" alt="Build and wiring placeholder">
+          <figcaption>
+            <strong>Build & wiring</strong>
+            <span>Replace <code>assets/project-build.svg</code></span>
+          </figcaption>
+        </figure>
+
+        <figure class="gallery-card">
+          <img src="assets/project-printer.svg" alt="Bambu P2S project placeholder">
+          <figcaption>
+            <strong>Beside the P2S</strong>
+            <span>Replace <code>assets/project-printer.svg</code></span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="about" class="section about-section">
+      <div class="about-grid">
+        <div>
+          <span class="kicker">How it works</span>
+          <h2>One installer, multiple ESP32 boards.</h2>
+        </div>
+
+        <div class="about-copy">
+          <p>
+            ESP Web Tools flashes a board-specific firmware image. The firmware
+            then accepts a small JSON configuration over USB Serial and stores
+            it in ESP32 Preferences/NVS.
+          </p>
+          <p>
+            Wi-Fi credentials and the Bambu LAN Access Code are therefore not
+            compiled into the public firmware image and are not committed to GitHub.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      <strong>Bambu P2S Round Display</strong>
+      <span>Community project · ESP32 + GC9A01</span>
+    </div>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

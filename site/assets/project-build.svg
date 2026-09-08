@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101b2d"/>
+      <stop offset="1" stop-color="#071018"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#23d5ff" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#23d5ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="760" rx="48" fill="url(#g)"/>
+  <circle cx="600" cy="350" r="280" fill="url(#glow)"/>
+  <circle cx="600" cy="330" r="154" fill="#071019" stroke="#2bdfff" stroke-width="12"/>
+  <circle cx="600" cy="330" r="128" fill="#0b1722" stroke="#23394b" stroke-width="3"/>
+  <text x="600" y="352" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="700" fill="#f7fbff">GPIO</text>
+  <text x="600" y="570" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="44" font-weight="700" fill="#f4f8fb">Build & wiring</text>
+  <text x="600" y="620" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="24" fill="#91a7b8">Show users how your finished assembly looks</text>
+</svg>

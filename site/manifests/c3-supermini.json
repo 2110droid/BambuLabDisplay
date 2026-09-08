@@ -1,0 +1,17 @@
+{
+  "name": "Bambu P2S Round Display - C3 Super Mini",
+  "version": "1.0.0",
+  "new_install_prompt_erase": true,
+  "new_install_improv_wait_time": 0,
+  "builds": [
+    {
+      "chipFamily": "ESP32-C3",
+      "parts": [
+        {
+          "path": "../firmware/c3-supermini/firmware.bin",
+          "offset": 0
+        }
+      ]
+    }
+  ]
+}
