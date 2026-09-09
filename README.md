@@ -1,13 +1,13 @@
-# Bambu P2S Round Display --- User Guide
+# Bambu printer Round Display --- User Guide
 
-This guide is for end users who want to build and install the Bambu P2S
+This guide is for end users who want to build and install the Bambu printer
 Round Display. You do not need Arduino IDE, PlatformIO, or programming
 experience.
 
 ## What This Project Does
 
 The project uses an ESP32 and a 1.28-inch 240 × 240 GC9A01 round display
-to show live status information from a Bambu Lab P2S over the local
+to show live status information from a Bambu Lab printer over the local
 network.
 
 Depending on printer state, the display can show information such as:
@@ -28,7 +28,7 @@ You will need:
 -   A supported ESP32 board
 -   A 1.28-inch 240 × 240 GC9A01 SPI round display
 -   A USB data cable for the ESP32
--   A Bambu Lab P2S
+-   A Bambu Lab printer
 -   A computer with a compatible desktop web browser
 -   The ESP32 and printer connected to the same local network during
     normal use
@@ -46,9 +46,9 @@ printer:
 
 -   Wi-Fi network name (SSID)
 -   Wi-Fi password
--   Bambu P2S IP address
--   Bambu P2S serial number
--   Bambu P2S LAN Access Code
+-   Bambu printer IP address
+-   Bambu printer serial number
+-   Bambu printer LAN Access Code
 -   The hostname you want the ESP32 to use on your network
 
 Do not share your Wi-Fi password or LAN Access Code publicly.
@@ -80,7 +80,7 @@ Enter:
 
 -   Wi-Fi SSID
 -   Wi-Fi password
--   P2S IP address
+-   printer IP address
 -   Printer serial number
 -   LAN Access Code
 -   ESP32 hostname
@@ -88,7 +88,7 @@ Enter:
 
 The default hostname is:
 
-`Bambu-P2S-Display`
+`Bambu-printer-Display`
 
 You may change it to another valid hostname.
 
@@ -135,7 +135,7 @@ Serial.
 The ESP32 stores the settings in non-volatile memory and restarts.
 
 After restarting, it should connect to your Wi-Fi network and then
-attempt to connect to the Bambu P2S.
+attempt to connect to the Bambu printer.
 
 ## Step 7 --- Wire the GC9A01 Display
 
@@ -222,7 +222,7 @@ It then attempts to:
 
 1.  Connect to the configured Wi-Fi network.
 2.  Synchronize the local time.
-3.  Connect to the Bambu P2S over the local network.
+3.  Connect to the Bambu printer over the local network.
 4.  Receive printer status information.
 5.  Update the round display.
 
@@ -302,7 +302,7 @@ Also verify that you selected the correct ESP32 board in the installer.
 Check:
 
 -   The ESP32 is connected to Wi-Fi.
--   The P2S is reachable on the same local network.
+-   The printer is reachable on the same local network.
 -   The printer IP address is correct.
 -   The printer serial number is correct.
 -   The LAN Access Code is correct.
@@ -351,5 +351,5 @@ repositories, or forum messages.
 
 This is a community project and is not an official Bambu Lab product.
 
-Bambu Lab, P2S, ESP32, and other product names belong to their
+Bambu Lab, printer, ESP32, and other product names belong to their
 respective owners.
